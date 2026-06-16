@@ -19,7 +19,7 @@ function Gameboard() {
     // if it isnt abort, else place player mark
     const placeMark = (row, column, player) => {
         // cell = board[row][column];
-        const isCellAvailable = board[row][column] === 0 ? true : false;
+        const isCellAvailable = board[row][column] === 0 ? false : true;
 
         if (!isCellAvailable) return;
 
@@ -95,7 +95,7 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
     const playRound = (row, column) => {
         // places current player mark
         console.log(`setting ${getCurrentPlayer().name}'s mark into cell in column ${column} of row ${row}`);
-        board.placeMark(row, column, getCurrentPlayer.mark)
+        board.placeMark(row, column, getCurrentPlayer().mark)
 
         // WIN LOGIC GOES HERE
 
@@ -116,5 +116,5 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
 
 const game = GameController();
 
-game.playRound(0, 0)
-// game.playRound(1, 2) 
+game.playRound(1, 0)
+game.playRound(1, 2)
