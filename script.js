@@ -31,7 +31,7 @@ function Gameboard() {
     // populating each index with the value of the Cell Object
     const printBoard = () => {
         // runs through each row, then runs through each index of row placing the cell value
-        const populatedBoard = board.map((row) => row.map((cell) => cell.getValue()));
+        const populatedBoard = board.map((row) => row.map((cell) => cell.getMark()));
         
         console.log(populatedBoard)
     }
@@ -81,7 +81,7 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
 
     // toggles currentPlayer
     const switchPlayerTurn = () => {
-        currentPlayer = currentPlayer === currentPlayer[0] ? currentPlayer [1] : currentPlaye[0];
+        currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
     };
 
     //gets the current player
@@ -115,3 +115,6 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
 }
 
 const game = GameController();
+
+game.playRound(0, 0)
+// game.playRound(1, 2) 
