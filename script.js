@@ -98,6 +98,25 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
         board.placeMark(row, column, getCurrentPlayer().mark)
 
         // WIN LOGIC GOES HERE
+        // after every move check if every index of that row is the player's mark, if it is, player has won and return
+        // for (let i = 0; i < 3; i++) {
+        //     console.log(board.getBoard()[row][i].getMark())
+        // }
+        if (board.getBoard()[row].every((cell) => cell.getMark() === getCurrentPlayer().mark)) {
+            console.log(`player ${getCurrentPlayer().name} has won`)
+            board.printBoard()
+            return
+        }
+
+
+
+
+
+
+        // then check every every index of that column, then return
+
+
+        // then every diagonal, then return
 
         switchPlayerTurn()
         printNewRound()
@@ -116,5 +135,11 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
 
 const game = GameController();
 
-game.playRound(1, 0)
-game.playRound(1, 2)
+game.playRound(0, 0)
+game.playRound(2, 2)
+
+game.playRound(0, 1)
+game.playRound(2, 1)
+
+game.playRound(0, 2)
+game.playRound(1, 1)
