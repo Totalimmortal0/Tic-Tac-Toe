@@ -98,7 +98,6 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
 
     const playRound = (row, column) => {
         // check if a player has won, if true return
-        console.log(hasPlayerWon)
         if (hasPlayerWon) return
 
         
@@ -108,20 +107,15 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
 
         // WIN LOGIC GOES HERE
         // after every move check if every index of that row is the player's mark, if it is, player has won and return
-        // for (let i = 0; i < 3; i++) {
-        //     console.log(board.getBoard()[i][column].getMark())
-        // }
         if (board.getBoard()[row].every((cell) => cell.getMark() === getCurrentPlayer().mark)) {
-            console.log(`player ${getCurrentPlayer().name} has won`)
-            hasPlayerWon = getCurrentPlayer().name
+            hasPlayerWon = `${getCurrentPlayer().name} Has Won!`
             board.printBoard()
             return
         }
 
         // then check that column, then return
         if (board.getBoard().every((boardRow) => boardRow[column].getMark() === getCurrentPlayer().mark)) {
-            console.log(`player ${getCurrentPlayer().name} has won`)
-            hasPlayerWon = getCurrentPlayer().name
+            hasPlayerWon = `${getCurrentPlayer().name} Has Won!`
             board.printBoard()
             return
         }
