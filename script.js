@@ -61,6 +61,10 @@ function Cell() {
 }
 
 function GameController(playerOneName = "Player One", playerTwoName = "Player Two") {
+    // initialize variable and function to check if player has won
+    let hasPlayerWon;
+    const getHasPlayerWon = () => hasPlayerWon;
+
     // creates an board for the game
     const board = Gameboard();
 
@@ -93,28 +97,34 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
     };
 
     const playRound = (row, column) => {
+        // check if a player has won, if true return
+        console.log(hasPlayerWon)
+        if (hasPlayerWon) return
+
+        
         // places current player mark
-        console.log(`setting ${getCurrentPlayer().name}'s mark into cell in column ${column} of row ${row}`);
+        // console.log(`setting ${getCurrentPlayer().name}'s mark into cell in column ${column} of row ${row}`);
         board.placeMark(row, column, getCurrentPlayer().mark)
 
         // WIN LOGIC GOES HERE
         // after every move check if every index of that row is the player's mark, if it is, player has won and return
         // for (let i = 0; i < 3; i++) {
-        //     console.log(board.getBoard()[row][i].getMark())
+        //     console.log(board.getBoard()[i][column].getMark())
         // }
         if (board.getBoard()[row].every((cell) => cell.getMark() === getCurrentPlayer().mark)) {
             console.log(`player ${getCurrentPlayer().name} has won`)
+            hasPlayerWon = getCurrentPlayer().name
             board.printBoard()
             return
         }
 
-
-
-
-
-
-        // then check every every index of that column, then return
-
+        // then check that column, then return
+        if (board.getBoard().every((boardRow) => boardRow[column].getMark() === getCurrentPlayer().mark)) {
+            console.log(`player ${getCurrentPlayer().name} has won`)
+            hasPlayerWon = getCurrentPlayer().name
+            board.printBoard()
+            return
+        }
 
         // then every diagonal, then return
 
@@ -130,6 +140,7 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
     return {
         playRound,
         getCurrentPlayer,
+        getHasPlayerWon,
     };
 }
 
@@ -138,8 +149,11 @@ const game = GameController();
 game.playRound(0, 0)
 game.playRound(2, 2)
 
-game.playRound(0, 1)
+game.playRound(1, 0)
 game.playRound(2, 1)
 
-game.playRound(0, 2)
+game.playRound(2, 0)
 game.playRound(1, 1)
+console.log(game.getHasPlayerWon())
+
+// need to fix verification if cell already has a mark in "placeMark"
