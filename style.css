@@ -1,3 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     background-color: rgb(24, 23, 29);
+}
+
+.container {
+    /* border: white 2px solid; */
+    width: 90%;
+    margin: 64px auto;
+}
+
+.turn {
+    /* border: white 2px solid; */
+    color: white;
+    text-align: center;
+    margin: 16px;
+}
+
+.board {
+    margin: auto;
+    height: 500px;
+    width: 500px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border: teal 2px solid
+}
+
+.cell {
+    padding: 25px;
+    font-size: 1.5rem;
 }

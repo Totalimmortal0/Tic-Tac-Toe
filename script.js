@@ -34,7 +34,7 @@ function Gameboard() {
         console.log(populatedBoard)
     }
 
-    return { getBoard, placeMark, printBoard}
+    return { getBoard, placeMark, printBoard }
 }
 
 // creates the mark for the player
@@ -141,22 +141,52 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
     printNewRound()
 
     // console only needs playRound
-    // but use getActivePlayer for UI
+    // but use getCurrentPlayer for UI
     return {
         playRound,
         getCurrentPlayer,
         getHasPlayerWon,
+        getBoard: board.getBoard,
     };
 }
 
-const game = GameController();
+function screenController() {
+    const game = GameController();
+    const playerTurnDiv = document.querySelector(".turn");
+    const boardDiv = document.querySelector(".board");
 
-// game.playRound(0, 0)
-// game.playRound(1, 2)
+    boardDiv.textContent = "adfadf";
 
-// game.playRound(1, 1)
-// game.playRound(2, 0)
+    const updateScreen = () => {
+        // clear board
+        boardDiv.textContent = "";
 
-// game.playRound(2, 2)
-// game.playRound(2, 0)
-// console.log(game.getHasPlayerWon())
+        // get newest version of the board and the player turn
+        const board = game.getBoard();
+        const currentPlayer = game.getCurrentPlayer();
+
+        // display current player's name in the div
+        playerTurnDiv.textContent = `${currentPlayer.name}'s turn`
+
+        // render the board
+        board.forEach((row) => {
+            row.forEach((cell, index) => {
+                // creates each cell as a button and add "cell" as class
+                const cellButton = document.createElement("button");
+                cellButton.classList.add("cell");
+
+                // creates a data attribute to get the column
+                cellButton.dataset.column = index;
+
+                // set the text content as the Mark and append
+                cellButton.textContent = cell.getMark();
+                boardDiv.appendChild(cellButton);
+            });
+        });
+    };
+
+
+    updateScreen();
+}
+
+screenController();
