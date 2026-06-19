@@ -18,10 +18,8 @@ function Gameboard() {
     // checks whether the cell is available in the given coordinate
     // if it isnt abort, else place player mark
     const placeMark = (row, column, player) => {
-        // cell = board[row][column];
-        const isCellAvailable = board[row][column] === 0 ? false : true;
-
-        if (!isCellAvailable) return;
+        const isCellAvailable = board[row][column].getMark() === 0 ? true : false; 
+        if (isCellAvailable === false) return;
 
         // places player mark on cell
         board[row][column].addMark(player);
@@ -120,7 +118,20 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
             return
         }
 
-        // then every diagonal, then return
+        // then check every diagonal, then return
+        // there's no point in doing anything more complex here, a simple index check is fine
+        if (
+            board.getBoard()[0][0].getMark() === getCurrentPlayer().mark &&
+            board.getBoard()[1][1].getMark() === getCurrentPlayer().mark &&
+            board.getBoard()[2][2].getMark() === getCurrentPlayer().mark ||
+            board.getBoard()[0][2].getMark() === getCurrentPlayer().mark &&
+            board.getBoard()[1][1].getMark() === getCurrentPlayer().mark &&
+            board.getBoard()[2][0].getMark() === getCurrentPlayer().mark
+        ) {
+            hasPlayerWon = `${getCurrentPlayer().name} Has Won!`
+            board.printBoard()
+            return
+        };
 
         switchPlayerTurn()
         printNewRound()
@@ -140,14 +151,12 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
 
 const game = GameController();
 
-game.playRound(0, 0)
-game.playRound(2, 2)
+// game.playRound(0, 0)
+// game.playRound(1, 2)
 
-game.playRound(1, 0)
-game.playRound(2, 1)
+// game.playRound(1, 1)
+// game.playRound(2, 0)
 
-game.playRound(2, 0)
-game.playRound(1, 1)
-console.log(game.getHasPlayerWon())
-
-// need to fix verification if cell already has a mark in "placeMark"
+// game.playRound(2, 2)
+// game.playRound(2, 0)
+// console.log(game.getHasPlayerWon())
