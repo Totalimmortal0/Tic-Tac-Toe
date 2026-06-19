@@ -205,3 +205,9 @@ function screenController() {
 }
 
 screenController();
+
+// TODO: 
+// add tie condition when all cells are taken by players marks
+// change players one and two's mark in the ui
+
+// will i do that? someday probably

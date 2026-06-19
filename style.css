@@ -34,3 +34,8 @@ body {
     padding: 25px;
     font-size: 1.5rem;
 }
+
+.cell:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+}
