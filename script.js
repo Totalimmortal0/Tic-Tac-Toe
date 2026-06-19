@@ -169,14 +169,15 @@ function screenController() {
         playerTurnDiv.textContent = `${currentPlayer.name}'s turn`
 
         // render the board
-        board.forEach((row) => {
-            row.forEach((cell, index) => {
+        board.forEach((row, rowIndex) => {
+            row.forEach((cell, columnIndex) => {
                 // creates each cell as a button and add "cell" as class
                 const cellButton = document.createElement("button");
                 cellButton.classList.add("cell");
 
-                // creates a data attribute to get the column
-                cellButton.dataset.column = index;
+                // creates a data attribute to get the index of both column and row
+                cellButton.dataset.row = rowIndex;
+                cellButton.dataset.column = columnIndex;
 
                 // set the text content as the Mark and append
                 cellButton.textContent = cell.getMark();
@@ -184,6 +185,16 @@ function screenController() {
             });
         });
     };
+
+    function clickHandlerBoard(e) {
+        const selectedRow = e.target.dataset.row;
+        const selectedColumn = e.target.dataset.column;
+        if (!selectedColumn || !selectedRow) return;
+        
+        game.playRound(selectedRow, selectedColumn);
+        updateScreen()
+    }
+    boardDiv.addEventListener("click", clickHandlerBoard);
 
 
     updateScreen();
