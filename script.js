@@ -31,7 +31,7 @@ function Gameboard() {
         // runs through each row, then runs through each index of row placing the cell value
         const populatedBoard = board.map((row) => row.map((cell) => cell.getMark()));
         
-        console.log(populatedBoard)
+        // console.log(populatedBoard)
     }
 
     return { getBoard, placeMark, printBoard }
@@ -91,7 +91,7 @@ function GameController(playerOneName = "Player One", playerTwoName = "Player Tw
 
     const printNewRound = () => {
         board.printBoard();
-        console.log(`${getCurrentPlayer().name}'s turn.`)
+        // console.log(`${getCurrentPlayer().name}'s turn.`)
     };
 
     const playRound = (row, column) => {
@@ -165,8 +165,12 @@ function screenController() {
         const board = game.getBoard();
         const currentPlayer = game.getCurrentPlayer();
 
-        // display current player's name in the div
-        playerTurnDiv.textContent = `${currentPlayer.name}'s turn`
+        // check if player has won and displays winner message, if not, display current player's name in the div
+        if (game.getHasPlayerWon() !== undefined) {
+            playerTurnDiv.textContent = `${game.getCurrentPlayer().name} Has Won!`
+        } else {
+            playerTurnDiv.textContent = `${currentPlayer.name}'s turn`
+        }
 
         // render the board
         board.forEach((row, rowIndex) => {
@@ -192,11 +196,11 @@ function screenController() {
         if (!selectedColumn || !selectedRow) return;
         
         game.playRound(selectedRow, selectedColumn);
+
         updateScreen()
     }
+    
     boardDiv.addEventListener("click", clickHandlerBoard);
-
-
     updateScreen();
 }
 
